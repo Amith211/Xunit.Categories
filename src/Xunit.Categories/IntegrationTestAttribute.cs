@@ -7,6 +7,6 @@ namespace Xunit.Categories
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class IntegrationTestAttribute:Attribute, ITraitAttribute
     {
-
+        public virtual bool SkipWhenLiveUnitTesting { get; set; }
     }
 }

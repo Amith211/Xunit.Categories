@@ -10,7 +10,26 @@ namespace Xunit.Categories
 
         public IEnumerable<KeyValuePair<string, string>> GetTraits(IAttributeInfo traitAttribute)
         {
-            yield return new KeyValuePair<string, string>("Category", "IntegrationTest");
+            var mainAtt = new KeyValuePair<string, string>("Category", "IntegrationTest");
+            bool skipWhenLiveUnitTesting = false;
+
+            var attributeInfo = traitAttribute as ReflectionAttributeInfo;
+            if (attributeInfo?.Attribute is IntegrationTestAttribute testCaseAttribute)
+            {
+                skipWhenLiveUnitTesting = testCaseAttribute.SkipWhenLiveUnitTesting;
+            }
+
+            switch (skipWhenLiveUnitTesting)
+            {
+                case true:
+                    return new[] 
+                    {
+                        mainAtt,
+                        new KeyValuePair<string, string>("Category", "SkipWhenLiveUnitTesting")
+                    };
+                default:
+                    return new[] { mainAtt };
+            };
         }
     }
 }

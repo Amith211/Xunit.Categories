@@ -83,5 +83,12 @@ namespace Xunit.Categories.Test
         {
             throw new NotImplementedException("request #8 - This is more black box, high level, and stress testing of a complete running application different to an IntegrationTest");
         }
+
+        [Fact]
+        [IntegrationTest(SkipWhenLiveUnitTesting = true)]
+        public void TestIntegrationTest_WithSkipWhenLiveUnitTesting()
+        {
+            throw new NotImplementedException("Integration test should be skipped");
+        }
     }
 }
